@@ -1,0 +1,62 @@
+_________________________________________________Joint Model Parameter File______________________________________________
+#Number of iterations:
+number_of_iterations=2000
+#Von Karmen's constant
+Von_Karmen_constant=0.41
+#Number of Vertical bins
+number_of_vertical_bins=101
+#Resuspension Coefficient
+resuspension_coefficient=0.0002
+#Concntration convergence factor
+concentration_convergence_factor=1.0
+#Size convergence factor
+size_convergence_factor=3.0
+#Initial shear velocity
+shear_velocity=0.21
+#Initial Bed roughness
+bed_roughness=0.62
+#Settling velocity type
+settling_velocity_type=1.0
+#Eddy viscosity shape
+eddy_viscosity_shape=2.0
+#Salinity of sea water
+salinity=33.0
+#Temperature of sea water
+water_temperature=11
+#Sediment density
+sediment_density=2650
+#Bed concentration
+bed_concentration=0.65
+#Dimensionless Shear velocity
+Dimensionless_shear_velovity=0.059
+#Gravity acceleration 
+Gravity_acceleration=9.81
+#Rouse number
+Rouse_number=0.551
+#Vertical Water Run up
+water_run_up=4.85
+#Slope
+slope=115.2
+#Sediment deposit rate
+sediment_deposit_rate=0.25
+#Number of sample location
+Number_sample=16
+#Sample distance from shoreline
+Largest_distance=20
+#Document name of fielddata of grainsize distribution 
+Filename=sample_P14abc.csv
+#Water Depth of sample location
+Depth=2.844
+#Sediment thickness of sample
+Sediment_thickness=0.15
+#Document name of sediment thickness distribution 
+Thickness_file=test.csv
+#Porosity
+porosity=0.35
+#circular constant
+pi=3.14
+#filename of sousby model
+Filename_Sousby='sample.csv'
+#layer thickness
+layer_thickness=0.04
+
