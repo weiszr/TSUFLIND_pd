@@ -66,6 +66,9 @@ def Tsusedform(name1,intv,h,x):
 			        continue
 #========================================Calculate Part============================================
 ##=========================Calculate SL and z for sediment Formation===============================
+    print(type(name1))
+    print(Tsusedmod(name1))
+    data=Tsusedmod(name1)
     data=Tsusedmod(name1)
     sl=data[0]# Sediment concentration profile
     z=data[1]# Elevation
@@ -103,15 +106,15 @@ def Tsusedform(name1,intv,h,x):
         phiind=stime[:,2] # find size of sediment
         hitsize=zeros(len(phiind))#initiate array with size of particles hitting bed
         for i in range(len(phiind)):
-            hitsize[i]=phi[phiind[i]]    # keep track of order sediment size hitting the bed 
+            hitsize[i]=phi[int(phiind[i])]    # keep track of order sediment size hitting the bed 
 ###=========================find elevations that sediment started from=============================
         zind=stime[:,1]# find elevation of sediment
         hitheight=zeros(len(zind)) # initiate array with height of particles hitting bed
         for i in range(len(zind)):
-            hitheight[i]=z[zind[i]] #keep track of order of height sediment came from
+            hitheight[i]=z[int(zind[i])] #keep track of order of height sediment came from
         hitload=zeros(len(zind)) # initial array with concentration of particles hitting bed
         for i in range(len(zind)):
-            hitload[i]=sl[zind[i],phiind[i]]
+            hitload[i]=sl[int(zind[i]),int(phiind[i])]
 ##=========================Calculate sediment thickness for each hitting grain size=================
         thickness=cumsum(hitload/(1-porosity))#cumulative thickness of deposit
         thickness2=zeros(len(thickness))
@@ -189,7 +192,7 @@ def Tsusedform(name1,intv,h,x):
             for k in range(len(phi)): #get cumulative sediment loads for each phi class
                 #sload[k][j]=sum(hitload[int(indthick[j]):int(indthick[j+1])])
                 for l in range(int(indthick2[j]),int(indthick2[j+1])):
-                    if(phi[stime[l][2]]==phi[k]):
+                    if(phi[int(stime[l][2])]==phi[k]):
                         sload[j][k]=hitload[l]+sload[j][k]
                         thickness1[j][k]=sload[j][k]/(1-porosity)
 ##==============================Calculate stats for each interval==================================

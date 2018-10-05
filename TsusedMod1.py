@@ -133,9 +133,9 @@ def Tsusedmod1(name):
                 if os.name!='nt':v=v[0:len(v)-1] # remove '\r' for Unix-system
                 #re-name input variables to match input list
                 #model parameters
-                if n=='number_of_iterations': nit=float(v)
+                if n=='number_of_iterations': nit=int(v)
                 elif n=='Von_Karmen_constant': vk=float(v)
-                elif n=='number_of_vertical_bins': nz=float(v)
+                elif n=='number_of_vertical_bins': nz=int(v)
                 elif n=='resuspension_coefficient': g0=float(v)
                 elif n=='concentration_convergence_factor': concconvfactor=float(v)
                 elif n=='size_convergence_factor': sizeconvfactor=float(v)

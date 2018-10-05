@@ -133,9 +133,9 @@ def Tsusedmod(name):
                 if os.name!='nt':v=v[0:len(v)-1] # remove '\r' for Unix-system
                 #re-name input variables to match input list
                 #model parameters
-                if n=='number_of_iterations': nit=float(v)
+                if n=='number_of_iterations': nit=int(v)
                 elif n=='Von_Karmen_constant': vk=float(v)
-                elif n=='number_of_vertical_bins': nz=float(v)
+                elif n=='number_of_vertical_bins': nz=int(v)
                 elif n=='resuspension_coefficient': g0=float(v)
                 elif n=='concentration_convergence_factor': concconvfactor=float(v)
                 elif n=='size_convergence_factor': sizeconvfactor=float(v)
@@ -232,9 +232,11 @@ def Tsusedmod(name):
     #This loops used to assume that the bed sediment disribution is the same as the suspended sediment distribution
     #This gives reasonable results when the size of the bed material is number of iterations to run
     diststep=1 #adjusts sediment grain size distribution every 2nd iteration
-    ssoffa=zeros(shape=(nit/diststep,nclass)) # initiate array tracking ss deviation from desired concentration for iteration=1:nit
-    ssfra=ones(shape=(nit/diststep,nclass)) #initiate array tracking ss concentrations for iteration=1:nit
-    fra=zeros(shape=(nit/diststep,nclass)) #initiate array tracking bed sediment concentrations for iteration=1:nit
+    nit = int(nit)
+    ssoffa=zeros(shape=(int(nit/diststep),nclass)) # initiate array tracking ss deviation from desired concentration for iteration=1:nit
+    ssfra=ones(shape=(int(nit/diststep),nclass)) #initiate array tracking ss concentrations for iteration=1:nit
+    print(type(nit))
+    fra=zeros(shape=(int(nit/diststep),nclass)) #initiate array tracking bed sediment concentrations for iteration=1:nit
     offa=zeros(nit)#inititate array to track how far total suspended load is off from desired suspended load
     ustrca=zeros(nit)#inititate array to track how  u*c changes with iteration                                            #ref. Wiberg and Rubin, 1989 JGR
     cconverge=0
@@ -264,6 +266,7 @@ def Tsusedmod(name):
             for i in range(0,len(z)-1):
                 diff[i]=z[i+1]-z[i]
             return (diff)
+        #zsl=z[0:nz-1]+diff(z)
         zsl=z[0:nz-1]+diff(z)
         diff1=diff(z)
 #**************************************elevation of speed calculated from eddy viscosity***********************************
