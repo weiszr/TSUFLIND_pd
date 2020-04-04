@@ -21,7 +21,7 @@ import matplotlib.cm as cmx
 import matplotlib.ticker as ticker
 separator = ':'
 separator = ':'
-print('test')
+print('test 1')
 with open('parameter_P14abc.txt', 'r') as f:
     for line in f:
         try:
