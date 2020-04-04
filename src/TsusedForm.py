@@ -79,8 +79,6 @@ def Tsusedform(name1, intv, h, x):
                 continue
 # ========================================Calculate Part============================================
 # =========================Calculate SL and z for sediment Formation===============================
-    print(type(name1))
-    print(Tsusedmod(name1))
     data = Tsusedmod(name1)
     data = Tsusedmod(name1)
     sl = data[0]  # Sediment concentration profile
@@ -334,7 +332,6 @@ def Tsusedform(name1, intv, h, x):
         ax7.set_ylabel('Thickness (m)')
         ax7.set_title(fname7)
         ax7.plot(stime1, thickness, '-')
-        print(shape(stime1))
         close()
         #savefig(fname7+' Sample%i.png'%ni,dpi=100)
         return (phi, Fr)
