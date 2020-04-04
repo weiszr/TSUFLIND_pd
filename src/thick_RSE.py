@@ -23,8 +23,8 @@ Created on 2013-5-24
 # This part is designed to input data to calculate thickness difference
 from pylab import *
 import os
-from ReadCSV import *
-from function import *
+from src.ReadCSV import *
+from src.function import *
 
 
 def thcalrse(name, th2, N):

@@ -1,7 +1,7 @@
 from pylab import *
 from numpy import *
-from function import *
-from sedstats import *
+from src.function import *
+from src.sedstats import *
 # ============================================Subfunction grading==============================================
 # This is a function to calculate grading of sediment based on concentration profiles for different grain size
 # classes.

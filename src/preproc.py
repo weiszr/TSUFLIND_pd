@@ -22,10 +22,10 @@ Created on 2013-5-26;
 #                   Rho:Density of sea water
 #                   H:Max water depth
 from pylab import *
-from function import *
-from sedstats import *
-from ReadCSV import *
-from output2CSV import *
+from src.function import *
+from src.sedstats import *
+from src.ReadCSV import *
+from src.output2CSV import *
 import csv
 import os
 

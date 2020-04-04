@@ -35,8 +35,8 @@ Created on 2013-5-21
 # This part is designed to input the parameter for this model
 from pylab import *
 import os
-from output2CSV import *
-from function import *
+from src.output2CSV import *
+from src.function import *
 
 
 def inconcentration(se1, fr, Vi, H, Cb, rho):

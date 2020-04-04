@@ -114,11 +114,11 @@ originate from Bruce Jaffe,USGS, Made into python by Hui Tang, Virginia Tech, ta
 # ==============================================================================================================================================
 # ==============================================================The caculate model part=========================================================
 from pylab import *
-from function import *
-from sedstats import *
+from src.function import *
+from src.sedstats import *
 from numpy import *
-from grading import *
-from ReadCSV import *
+from src.grading import *
+from src.ReadCSV import *
 import csv
 import os
 
