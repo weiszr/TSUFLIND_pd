@@ -270,7 +270,6 @@ def Tsusedmod(name):
     ssoffa = zeros(shape=(int(nit/diststep), nclass))
     # initiate array tracking ss concentrations for iteration=1:nit
     ssfra = ones(shape=(int(nit/diststep), nclass))
-    print(type(nit))
     # initiate array tracking bed sediment concentrations for iteration=1:nit
     fra = zeros(shape=(int(nit/diststep), nclass))
     # inititate array to track how far total suspended load is off from desired suspended load
