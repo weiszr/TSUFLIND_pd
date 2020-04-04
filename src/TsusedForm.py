@@ -40,12 +40,12 @@ Created on 2013-5-26
 #               Fr-Suspended seidments percentage for each grain size
 from pylab import *
 from numpy import *
-from ReadCSV import *
-from function import *
-from sedstats import *
-from TsusedMod import *
-from output2CSV import *
-from ReadCSV import *
+from src.ReadCSV import *
+from src.function import *
+from src.sedstats import *
+from src.TsusedMod import *
+from src.output2CSV import *
+from src.ReadCSV import *
 
 
 def Tsusedform(name1, intv, h, x):

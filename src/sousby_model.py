@@ -56,9 +56,9 @@ Created on 2013-1-13
 # This part is designed to input the parameter for this model
 from pylab import *
 import os
-from output2CSV import *
-from function import *
-from ReadCSV import *
+from src.output2CSV import *
+from src.function import *
+from src.ReadCSV import *
 
 
 def sousby(se, C0, V, H, nc):

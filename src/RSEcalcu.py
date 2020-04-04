@@ -28,8 +28,8 @@ Created on 2013-5-24
 
 from pylab import *
 import os
-from function import *
-from ReadCSV import *
+from src.function import *
+from src.ReadCSV import *
 
 
 def calrse(name, phi, Fr2, Num):

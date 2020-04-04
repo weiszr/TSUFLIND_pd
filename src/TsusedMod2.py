@@ -114,16 +114,16 @@ originate from Bruce Jaffe,USGS, Made into python by Hui Tang, Virginia Tech, ta
 # ==============================================================================================================================================
 # ==============================================================The caculate model part=========================================================
 from pylab import *
-from function import *
-from sedstats import *
+from src.function import *
+from src.sedstats import *
 from numpy import *
-from grading import *
-from ReadCSV import *
+from src.grading import *
+from src.ReadCSV import *
 import csv
 import os
 
 
-def Tsusedmod(name):
+def Tsusedmod2(name):
     # ============================================================Read data from file for model====================================================
     print("\n ====================================running==================================== \n")
     # read in model inputs from excel file
@@ -240,8 +240,7 @@ def Tsusedmod(name):
             tcrit[i] = rhow*Ucrit[i]**2
     elif(setType == 2.0):
         for i in range(nclass):
-            ws[i] = -dietrichWs(wtemp, d[i], rhos[i],
-                                rhow/1000, 0.005, 0.7, 3.5)
+            ws[i] = -dietrichWs(wtemp, d[i], rhos[i], rhow, 0.005, 0.7, 3.5)
             Ucrit[i] = UstarCrit(d[i], kinvisc, s[i])
             tcrit[i] = rhow*Ucrit[i]**2
     elif(setType == 3.0):
@@ -265,12 +264,10 @@ def Tsusedmod(name):
     # This loops used to assume that the bed sediment disribution is the same as the suspended sediment distribution
     # This gives reasonable results when the size of the bed material is number of iterations to run
     diststep = 1  # adjusts sediment grain size distribution every 2nd iteration
-    nit = int(nit)
     # initiate array tracking ss deviation from desired concentration for iteration=1:nit
     ssoffa = zeros(shape=(int(nit/diststep), nclass))
     # initiate array tracking ss concentrations for iteration=1:nit
     ssfra = ones(shape=(int(nit/diststep), nclass))
-    print(type(nit))
     # initiate array tracking bed sediment concentrations for iteration=1:nit
     fra = zeros(shape=(int(nit/diststep), nclass))
     # inititate array to track how far total suspended load is off from desired suspended load
@@ -307,11 +304,11 @@ def Tsusedmod(name):
             for i in range(0, len(z)-1):
                 diff[i] = z[i+1]-z[i]
             return (diff)
-        # zsl=z[0:nz-1]+diff(z)
         zsl = z[0:nz-1]+diff(z)
         diff1 = diff(z)
 # **************************************elevation of speed calculated from eddy viscosity***********************************
         zmid = (z[0:nz-1]+z[1:nz])/2
+        zmid1 = zmid.reshape(len(zmid))
 # *******************************************calculate eddy viscosity profile***********************************************
         # var=1 is linear eddy viscosity profile, var=2 is parabolic profile, var=3 is gelf profile
         if var == 1.0:
@@ -410,116 +407,8 @@ def Tsusedmod(name):
         ed = 'Parabolic'
     elif (var == 3):
         ed = 'Gelfenbaum'
-    print('Deposit thickness:th=%4.3f' % th+'m \n')
-    print('Water depth:h=%4.1f' % h+'m \n')
-    print('Size classes: %i' % nclass+'\n')
-    print('D mean: %.3e' % Dmn+'m \n')
-    print('Viscosity Profile:%s' % ed+'\n')
-    print('\n Model Results \n')
-    print('Shear velocity:%4.2f' % ustrc+'m/s \n')
-    print('Bed Roughness:%.3e' % zotot+'\n')
-    print('Sediment load needed:%4.3f' % thload+'m \n')
-    print('Sediment load predicted:%4.3f' % predictedssload+'m \n')
-    print('Max. speed:%5.2f' % maximumspeed+'m/s \n')
-    print('Avg. speed:%5.2f' % avgspeed+'m/s \n')
-    print('Max. Froude:%4.2f' % MaxFroude+'\n')
-    print('Avg. Froude:%4.2f' % AvgFroude+'\n')
-    fp = open('result.txt', 'w')
-    fp.write('Model stats \n')
-    fp.write("datestr(now) \n")
-    fp.write("iterations:")
-    fp.write("%i \n" % iteration)
-    fp.write("Input Data \n")
-    fp.write("Deposit thickness (m):")
-    fp.write("%4.3f \n" % th)
-    fp.write("Depth (m):")
-    fp.write("%4.1f \n" % h)
-    fp.write("size classes:")
-    fp.write("%i \n" % nclass)
-    fp.write("Mean grain diameter (m):")
-    fp.write("%.3e \n" % Dmn)
-    fp.write("Eddy viscosity profile:")
-    fp.write("%s \n" % ed)
-    fp.write("Model Results: \n")
-    fp.write("ustarc (shear velocity) (m/s):")
-    fp.write("%4.2f \n" % ustrc)
-    fp.write("ztot (bed roughness):")
-    fp.write("%.3e \n" % zotot)
-    fp.write("thload (sediment load need) (m):")
-    fp.write("%4.3f \n" % thload)
-    fp.write("predictload (sediment load predicted) (m): ")
-    fp.write("%4.3f \n" % predictedssload)
-    fp.write("max. speed (m/s):")
-    fp.write("%5.2f \n" % maximumspeed)
-    fp.write("avg. speed (m/s):")
-    fp.write("%5.2f \n" % avgspeed)
-    fp.write("max. Froude:")
-    fp.write("%4.2f \n" % MaxFroude)
-    fp.write("avg. Froude:")
-    fp.write('%4.2f \n' % AvgFroude)
-    fp.write("Detail of structure: \n")
-    fp.write("ssfrwanted (suspended size distribution wanted): \n")
-    fp.write("%s \n" % ssfrwanted)
-    fp.write("ssconverge (keeps track of whether amount of sediment in each size class is acceptable): \n")
-    fp.write("%s \n" % ssconverge)
-    fp.write("cconverge: \n")
-    fp.write("%s \n" % cconverge)
-    fp.write(
-        "ssfra(array to track of suspended sediment concentration in each size class): \n")
-    fp.write("%s \n" % ssfra)
-    fp.write("offa(array to track how far total suspended load is off from load required to create deposit): \n")
-    fp.write("%s \n" % offa)
-    fp.write("C(Suspended-sediment profile (calculated for each size class)): \n")
-    fp.write("%s \n" % C)
-    fp.write("G(Suspended load (calculated for each size class)): \n")
-    fp.write("%s \n" % G)
-    fp.write("ws(settling velocity (m/s)): \n")
-    fp.write("%s \n" % ws)
-    fp.write("SL: \n")
-    fp.write("%s \n" % sl)
-    fp.write(
-        "z(log space elevation values where concentrations and velocities are calculated): \n")
-    fp.write("%s \n" % s)
-    fp.write("zsl: \n")
-    fp.write("%s \n" % zsl)
-    fp.write("zmid: \n")
-    fp.write("%s \n" % zmid)
-    fp.write("ustrca(array to track how  u*c changes with iteration): \n")
-    fp.write("%s \n" % ustrca)
-    fp.write("S(excess shear stress): \n")
-    fp.write("%s \n" % S)
-    fp.write(
-        "spd(mean current speed calculated using current shear velocity (m/s)): \n")
-    fp.write("%s \n" % spd)
-    fp.write("results of the structure \n")
-    fp.write("zoN(Nickaradse grain roughness): \n")
-    fp.write("%s \n" % zoN)
-    fp.write("tcrit(critical shear stress (N/m^2)): \n")
-    fp.write("%s \n" % tcrit)
-    fp.write("taub(bottom shear stress due to currents (N/m^2)): \n")
-    fp.write("%s \n" % taub)
-    fp.write("taustar(bottom shear stress normalized by critical shear stress): \n")
-    fp.write("%s \n" % taustar)
-    fp.write("phi(grain size in phi units for each size class): \n")
-    fp.write("%s \n" % phi)
-    fp.write("Ca(reference concentration (volume conc; m3/m3) *** ref. elevation is zo, not 2 grain diameters): \n")
-    fp.write("%s \n" % Ca)
-    fp.write("Ki(integral of 1/eddie viscosity): \n")
-    fp.write("%s \n" % Ki)
-    fp.write(
-        "off(normalized difference between suspended load and load required to create deposit): \n")
-    fp.write("%s \n" % off)
-    fp.write("\n End")
-    fp.write('General results \n')
-    fp.write('Predictload (kg/m3) \n')
-    fp.write('%f \n' % predictedssload)
-    fp.write('maximum speed \n')
-    fp.write('%f \n' % maximumspeed)
-    fp.write('average speed \n')
-    fp.write('%f \n' % avgspeed)
-    fp.write('Max froude \n')
-    fp.write('%f \n' % MaxFroude)
-    fp.write('average froude \n')
-    fp.write('%f \n' % AvgFroude)
-    fp.close()
-    return(sl1, z, phi)
+    speed = zeros(shape=(100, 2))
+    zsl = zsl.reshape(100,)
+    speed[:, 0] = zsl
+    speed[:, 1] = spd
+    return(speed)

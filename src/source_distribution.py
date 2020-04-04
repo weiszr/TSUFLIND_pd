@@ -26,9 +26,9 @@ Created on 2013-5-21
 # ========================================================================================================
 from pylab import *
 import os
-from output2CSV import *
-from function import *
-from ReadCSV import *
+from src.output2CSV import *
+from src.function import *
+from src.ReadCSV import *
 
 
 def source_distribution(Dl, Ds, Dm, nc):
