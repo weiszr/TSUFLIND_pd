@@ -79,6 +79,15 @@ def Tsusedform(name1, intv, h, x):
                 continue
 # ========================================Calculate Part============================================
 # =========================Calculate SL and z for sediment Formation===============================
+    path = os.getcwd()
+    print ("The current working directory is %s" % path) 
+    path1 = '{t1}/data'.format(t1=path)
+    try:
+        os.mkdir(path1)
+    except OSError:
+        print ("Creation of the directory {t1} already exists".format(t1=path1))
+    else:
+        print ("Successfully created the directory {t1}".format(t1=path1))
     data = Tsusedmod(name1)
     data = Tsusedmod(name1)
     sl = data[0]  # Sediment concentration profile
@@ -243,7 +252,7 @@ def Tsusedform(name1, intv, h, x):
         for i in range(0, int(len(intv))):
             pe = Fr[i, :]
             name = name1.split(".")
-            filename = name[0]+"_suspended_sample%02d" % i+".csv"
+            filename = path1+'/'+name[0]+"_suspended_sample%02d" % i+".csv"
             fp = output2CSV1(
                 filename, phi, pe, totalth[i], h, x, 'phi', 'fraction', 'thickness', 'depth', 'location')
             f1 = figure()
