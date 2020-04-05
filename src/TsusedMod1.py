@@ -180,6 +180,16 @@ def Tsusedmod1(name):
                 continue
             except ValueError as e:
                 continue
+    path = os.getcwd()
+    print ("The current working directory is %s" % path)
+    path1 = '{t1}/data'.format(t1=path)
+    try:
+        os.mkdir(path1)
+    except OSError:
+        print ("Creation of the directory {t1} already exists".format(t1=path1))
+    else:
+        print ("Successfully created the directory {t1}".format(t1=path1))
+#     print(name)
     filename = name
     data = readCSV1(filename, separator=';')
     phi = data[:, 0]
@@ -432,7 +442,7 @@ def Tsusedmod1(name):
     print('Avg. speed:%5.2f' % avgspeed+'m/s \n')
     print('Max. Froude:%4.2f' % MaxFroude+'\n')
     print('Avg. Froude:%4.2f' % AvgFroude+'\n')
-    fp = open('result.txt', 'w')
+    fp = open(path1+'/result.txt', 'w')
     fp.write("Model stats \n")
     fp.write("datestr(now) \n")
     fp.write("iterations:")

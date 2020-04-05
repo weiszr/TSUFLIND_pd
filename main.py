@@ -19,10 +19,26 @@ import os
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
 import matplotlib.ticker as ticker
-
+import shutil
+#TODO:
+#   [ ] save output data in data directory
+#   [ ] create a new way to read in data
+#   [ ] make input files and data directories a commandline input
 def main():
     separator = ':'
     separator = ':'
+    path = os.getcwd()
+    print ("The current working directory is %s" % path)
+    global path1
+    path1 = '{t1}/data'.format(t1=path)
+    if os.path.isdir(path1) !=False:
+        shutil.rmtree(path1)
+    try:
+        os.mkdir(path1)
+    except OSError:
+        print ("Creation of the directory {t1} already exists".format(t1=path1))
+    else:
+        print ("Successfully created the directory {t1}".format(t1=path1))
     with open('parameter_P14abc.txt', 'r') as f:
         for line in f:
             try:
@@ -124,13 +140,13 @@ def main():
         name1 = 'sample%02d' % i
         data5 = Tsusedform(name, intv, h[i], x[i])
         for j in range(len(intv)):
-            name2 = name1+"_suspended_sample%02d" % j+".csv"
+            name2 = path1+'/'+name1+"_suspended_sample%02d" % j+".csv"
             data6 = readCSV1(name2, separator=';')
             result[i, j, :] = Tsusedmod1(name2)
             speedfile = Tsusedmod2(name2)
             result1[i, j, 0, :] = speedfile[:, 0]
             result1[i, j, 1, :] = speedfile[:, 1]
-            name3 = 'result_'+'sample%02d' % i+'.txt'
+            name3 = path1+ '/result_'+'sample%02d' % i+'.txt'
             fp = open(name3, 'w')
             fp.write("%s \n" % result[i, j, :])
         close()

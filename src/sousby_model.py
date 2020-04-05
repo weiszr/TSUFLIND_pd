@@ -170,10 +170,19 @@ def sousby(se, C0, V, H, nc):
 # This part is designed to plot figure for this model include:total sediment load, mean grain size,flow depth
 # ==================================Output Data and parameters==========================================
 # This part is designed to output and plot Data and parameter
+    path = os.getcwd()
+    print ("The current working directory is %s" % path) 
+    path1 = '{t1}/data'.format(t1=path)
+    try:
+        os.mkdir(path1)
+    except OSError:
+        print ("Creation of the directory {t1} already exists".format(t1=path1))
+    else:
+        print ("Successfully created the directory {t1}".format(t1=path1))
     h = x*(Rz-H)/(Rz*m)-x/m+H  # Water depth
     for i in range(N):
         pe = pecentA[i, :]
-        filename2 = "sample%02d" % i+".csv"
+        filename2 = path1+"/sample%02d" % i+".csv"
         fp2 = output2CSV1(filename2, se, pecentA[i, :], totalth2[i], h[i],
                           x[i], 'phi', 'fraction', 'thickness', 'depth', 'location')
         f4 = figure()
