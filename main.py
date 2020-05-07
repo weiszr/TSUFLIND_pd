@@ -21,7 +21,7 @@ import matplotlib.cm as cmx
 import matplotlib.ticker as ticker
 import shutil
 #TODO:
-#   [ ] save output data in data directory
+#   [x] save output data in data directory
 #   [ ] create a new way to read in data
 #   [ ] make input files and data directories a commandline input
 def main():
