@@ -39,8 +39,8 @@ from src.output2CSV import *
 from src.function import *
 
 
-def inconcentration(se1, fr, Vi, H, Cb, rho):
-    with open('parameter_P14abc.txt', 'r') as f:
+def inconcentration(p_file_l,se1, fr, Vi, H, Cb, rho):
+    with open(p_file_l, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')

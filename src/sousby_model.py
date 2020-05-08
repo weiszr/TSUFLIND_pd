@@ -61,8 +61,8 @@ from src.function import *
 from src.ReadCSV import *
 
 
-def sousby(se, C0, V, H, nc):
-    with open('parameter_P14abc.txt', 'r') as f:
+def sousby(p_file_l,se, C0, V, H, nc):
+    with open(p_file_l, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')

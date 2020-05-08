@@ -122,12 +122,12 @@ from src.ReadCSV import *
 import csv
 import os
 
-def Tsusedmod(name):
+def Tsusedmod(p_file_l,name):
     # ============================================================Read data from file for model====================================================
     print("\n ====================================running==================================== \n")
     # read in model inputs from excel file
     separator = ':'
-    with open('parameter_P14abc.txt', 'r') as f:
+    with open(p_file_l, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')

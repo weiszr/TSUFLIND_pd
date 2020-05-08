@@ -35,11 +35,11 @@ from pylab import *
 import os
 
 
-def Moore_function(Dl, Dm, rho):
+def Moore_function(p_file_l,Dl, Dm, rho):
     # ========================================= Handle input parameters===================================
     # This part is used to read parameters for this model frome document
     separator = ':'
-    with open('parameter_P16.txt', 'r') as f:
+    with open(p_file_l, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')

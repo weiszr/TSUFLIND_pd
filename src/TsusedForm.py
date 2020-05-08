@@ -48,8 +48,8 @@ from src.output2CSV import *
 from src.ReadCSV import *
 
 
-def Tsusedform(name1, intv, h, x):
-    with open('parameter_P14abc.txt', 'r') as f:
+def Tsusedform(p_file_l,name1, intv, h, x):
+    with open(p_file_l, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')
@@ -88,8 +88,8 @@ def Tsusedform(name1, intv, h, x):
         print ("Creation of the directory {t1} already exists".format(t1=path1))
     else:
         print ("Successfully created the directory {t1}".format(t1=path1))
-    data = Tsusedmod(name1)
-    data = Tsusedmod(name1)
+    data = Tsusedmod(p_file_l,name1)
+    data = Tsusedmod(p_file_l,name1)
     sl = data[0]  # Sediment concentration profile
     z = data[1]  # Elevation
     phi = data[2]  # Grain size

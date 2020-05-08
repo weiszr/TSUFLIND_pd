@@ -25,6 +25,33 @@ import shutil
 #   [ ] create a new way to read in data
 #   [ ] make input files and data directories a commandline input
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='TSunami FLow INversion from Deposits (TSUFLIND)')
+    parser.add_argument('-f', '--parafile', help='Name of Parameter File', required=True)
+#     parser.add_argument('-s','--scenario',help='RCP Scenario',required=False)
+#     parser.add_argument('-m','--mode',help='Mode (tsunami, tsunami_tide)',required=False)
+#     parser.add_argument('-sti','--subs_tide',help='Subsample size of tide',required=False)
+#     parser.add_argument('-sse','--subs_seal',help='Subsample size of sea level',required=False)
+#     parser.add_argument('-fh','--flood_h',help='Flood Heights',required=False)
+#     parser.add_argument('-p','--production', action='store_true')
+#     parser.set_defaults(production=False)
+#     
+    args = parser.parse_args()
+    if str(args.parafile) != 'None':
+     para_run_fname = str(args.parafile)
+#     if str(args.scenario) != 'None':
+#         main_rcp_scenario = str(args.scenario)
+#     if str(args.mode) != 'None':
+#         main_mode = str(args.mode)
+#     if str(args.subs_tide) != 'None':
+#        main_mc_tide = int(args.subs_tide)
+#     if str(args.subs_seal) != 'None':
+#         main_mcs = int(args.subs_seal)
+#     if str(args.flood_h) != 'None':
+#         my_list = [float(item) for item in args.flood_h.split(',')]
+#         flood_height_main = linspace(my_list[0],my_list[1],int(my_list[2]))
+#     main_prod_mode =args.production
+    print(para_run_fname)
     separator = ':'
     separator = ':'
     path = os.getcwd()
@@ -39,7 +66,7 @@ def main():
         print ("Creation of the directory {t1} already exists".format(t1=path1))
     else:
         print ("Successfully created the directory {t1}".format(t1=path1))
-    with open('parameter_P14abc.txt', 'r') as f:
+    with open(para_run_fname, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')
@@ -112,7 +139,7 @@ def main():
                 continue
             except ValueError as e:
                 continue
-    para = preproc(filename)  # preprocess data from field data document
+    para = preproc(para_run_fname,filename)  # preprocess data from field data document
     Dl = 0.0
     Dm = 2.6860
     Ds = 4.0
@@ -126,9 +153,9 @@ def main():
     Data_source = source_distribution(Dl, Ds, D, Nc)
     Se = Data_source[0]  # Grain size of original sediment source
     Fr = Data_source[1]  # Fraction for each grain size of sediment source
-    Data_concentration = inconcentration(Se, Fr, V, H, Cb, rho)
+    Data_concentration = inconcentration(para_run_fname,Se, Fr, V, H, Cb, rho)
     con = Data_concentration
-    data2 = sousby(Se, con, V, H, Nc)
+    data2 = sousby(para_run_fname,Se, con, V, H, Nc)
     thD = thcalrse(th_file, data2, N)
     x = linspace(0, 350, 16)
     h = x*(Rz-H)/(Rz*m)-x/m+H
@@ -138,12 +165,12 @@ def main():
         intv = linspace(data2[i]/3.0, data2[i], 3)
         name = 'sample%02d' % i+'.csv'
         name1 = 'sample%02d' % i
-        data5 = Tsusedform(name, intv, h[i], x[i])
+        data5 = Tsusedform(para_run_fname,name, intv, h[i], x[i])
         for j in range(len(intv)):
             name2 = path1+'/'+name1+"_suspended_sample%02d" % j+".csv"
             data6 = readCSV1(name2, separator=';')
-            result[i, j, :] = Tsusedmod1(name2)
-            speedfile = Tsusedmod2(name2)
+            result[i, j, :] = Tsusedmod1(para_run_fname,name2)
+            speedfile = Tsusedmod2(para_run_fname,name2)
             result1[i, j, 0, :] = speedfile[:, 0]
             result1[i, j, 1, :] = speedfile[:, 1]
             name3 = path1+ '/result_'+'sample%02d' % i+'.txt'

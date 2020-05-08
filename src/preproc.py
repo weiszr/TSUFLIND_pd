@@ -30,13 +30,13 @@ import csv
 import os
 
 
-def preproc(filename):
+def preproc(p_file_l,filename):
     # ===================================================================================================
     # ===========================================Input Parameter=========================================
     # ===================================================================================================
     # This part is designed for inputing all parameter for all model and major function
     separator = ':'
-    with open('parameter_P14abc.txt', 'r') as f:
+    with open(p_file_l, 'r') as f:
         for line in f:
             try:
                 s = line.split('=')
